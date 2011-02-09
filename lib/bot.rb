@@ -1,6 +1,6 @@
 # External Libs
 require 'rubygems'
-require 'active_support'
+require 'active_support/all'
 require 'active_support/hash_with_indifferent_access'
 require 'yaml'
 require 'eventmachine'
