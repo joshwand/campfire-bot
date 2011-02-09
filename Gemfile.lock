@@ -15,6 +15,7 @@ GEM
       little-plugger (>= 1.1.2)
     mime-types (1.16)
     multipart-post (1.0.1)
+    patron (0.4.10)
     rack (1.2.1)
     roauth (0.0.3)
     tinder (1.4.3)
@@ -38,4 +39,5 @@ DEPENDENCIES
   i18n
   logging
   mime-types
+  patron
   tinder (> 1.4.0)

@@ -14,6 +14,8 @@ require "#{BOT_ROOT}/lib/plugin"
 
 gem 'tinder', '>= 1.4.0'; require 'tinder'
 
+Faraday.default_adapter = :patron
+
 module CampfireBot
   class Bot
     # this is necessary so the room and campfire objects can be accessed by plugins.
@@ -125,13 +127,15 @@ module CampfireBot
     end
     
     def join_rooms_as_user
-      @campfire = Tinder::Campfire.new(@config['site'], :ssl => @config['use_ssl'], :username => @config['api_key'], :password => 'x')
+      @campfire = Tinder::Campfire.new(@config['site'], :ssl => @config['use_ssl'], :token => @config['api_key'])
 
       @config['rooms'].each do |room_name|
         @rooms[room_name] = @campfire.find_room_by_name(room_name)
-        res = @rooms[room_name].join
-puts res.inspect
-        raise Exception.new("got #{res.code} error when joining room #{room_name}: #{res.body}") if res.code != 200 
+        
+        #res = @rooms[room_name].join
+        @rooms[room_name].join
+
+        #raise Exception.new("got #{res.code} error when joining room #{room_name}: #{res.body}") if res.code != 200 
       end
     end
 
