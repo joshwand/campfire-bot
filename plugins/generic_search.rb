@@ -61,6 +61,6 @@ class GenericSearch < CampfireBot::Plugin
       uri.merge res.header['Location']
     else # Net::HTTPSuccess or error
       url
-    end
+    end.to_s
   end
 end
