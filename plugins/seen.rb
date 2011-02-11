@@ -23,8 +23,7 @@ class Seen < CampfireBot::Plugin
   
   def seen(msg)
     found = false
-    puts msg[:message]
-    puts msg[:message] =~ SEEN_REGEXP
+    msg[:message] =~ SEEN_REGEXP
     
     if !$1.nil?
       first_name = $1.match("[A-Za-z]+")[0]
