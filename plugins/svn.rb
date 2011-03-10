@@ -63,11 +63,13 @@ class Svn < CampfireBot::Plugin
   # fetch jira url and return a list of commit Hashes
   def fetch_svn_urls()
     urls = bot.config['svn_urls']
+    svn_username = bot.config['svn_username']
+    svn_password = bot.config['svn_password']
     commits = []
     urls.each do |url|
       begin
         @log.info "checking #{url} for new commits..."
-        xmldata = `svn log --xml -v --limit 15 #{url}`
+        xmldata = `svn log --xml -v --limit 15 #{url} --username #{svn_username} --password #{svn_password}`
         doc = REXML::Document.new(xmldata)
       
         doc.elements.inject('log/logentry', commits) do |commits, element|

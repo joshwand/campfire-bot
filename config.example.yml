@@ -28,3 +28,5 @@ production:
     - basecamp
   svn_urls:
     - http://your.svn/url/
+  svn_username: your_svn_username
+  svn_password: your_svn_password 
