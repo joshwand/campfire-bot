@@ -33,7 +33,7 @@ class Svn < CampfireBot::Plugin
     commits.each do |commit|
       # p commit
       if new?(commit, old_cache)
-        saw_an_issue = true
+        saw_a_commit = true
 
         @cached_revisions = update_cache(commit, @cached_revisions) 
         flush_cache(@cached_revisions)
