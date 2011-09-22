@@ -2,18 +2,18 @@ h1. Campfire Bot
 
 This is a bot for 37 Signals' Campfire chat service.
 
-It has plugin support so you can make your bot do whatever you want. 
+It has plugin support so you can make your bot do whatever you want.
 
 h2. Installation
 
 h3. Download
 
 Download the source from "github":http://github.com/joshwand/campfire-bot
- 
+
 h3. Gem Dependencies
 
-  gem install bundler
-  bundle install
+pre. gem install bundler
+bundle install
 
 h3. Configuration
 
@@ -23,7 +23,7 @@ h2. Usage
 
 To run the bot, run @script/bot@ with the environment name as the argument:
 
-  script/bot development
+pre. script/bot development
 
 
 h2. Known issues
