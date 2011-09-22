@@ -38,4 +38,5 @@ DEPENDENCIES
   i18n
   logging
   mime-types
-  tinder (> 1.4.0)
+  tinder (>= 1.4.3)
+  twitter-stream
