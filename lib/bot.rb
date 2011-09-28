@@ -7,6 +7,7 @@ require 'yaml'
 require 'eventmachine'
 require 'logging'
 require 'fileutils'
+require 'erb'
 
 # Local Libs
 require "#{BOT_ROOT}/lib/message"
@@ -29,7 +30,7 @@ module CampfireBot
         exit 1
       end
       @timeouts = 0
-      @config   = YAML::load(File.read("#{BOT_ROOT}/config.yml"))[BOT_ENVIRONMENT]
+      @config   = YAML::load(ERB.new(File.read("#{BOT_ROOT}/config.yml")).result)[BOT_ENVIRONMENT]
       @rooms    = {}
       @root_logger = Logging.logger["CampfireBot"]
       @log = Logging.logger[self]
