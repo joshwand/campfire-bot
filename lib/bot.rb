@@ -9,11 +9,6 @@ require 'logging'
 require 'fileutils'
 require 'erb'
 
-# Local Libs
-require "#{BOT_ROOT}/lib/message"
-require "#{BOT_ROOT}/lib/event"
-require "#{BOT_ROOT}/lib/plugin"
-
 gem 'tinder', '>= 1.4.0'; require 'tinder'
 
 module CampfireBot
