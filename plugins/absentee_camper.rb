@@ -1,3 +1,5 @@
+require 'plugin'
+
 module AbsenteeCamper
   autoload :NotificationManager, "#{BOT_ROOT}/plugins/absentee_camper/notification_manager"
   autoload :EmailNotifier, "#{BOT_ROOT}/plugins/absentee_camper/email_notifier"
