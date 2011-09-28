@@ -133,7 +133,7 @@ module CampfireBot
 
     def load_plugins
       @config['enable_plugins'].each do |plugin_name|
-        load "#{BOT_ROOT}/plugins/#{plugin_name}.rb"
+        load "#{plugin_name}.rb"
       end
 
       # And instantiate them
@@ -177,8 +177,4 @@ module CampfireBot
       end
     end
   end
-end
-
-def bot
-  CampfireBot::Bot.instance
 end
