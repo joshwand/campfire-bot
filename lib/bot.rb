@@ -36,7 +36,7 @@ module CampfireBot
       @log = Logging.logger[self]
       
       # TODO much of this should be configurable per environment
-      @root_logger.add_appenders Logging.appenders.rolling_file("#{BOT_ROOT}/var/#{BOT_ENVIRONMENT}.log", 
+      @root_logger.add_appenders Logging.appenders.rolling_file("/tmp/#{BOT_ENVIRONMENT}.log", 
                             :layout => Logging.layouts.pattern(:pattern => "%d | %-6l | %-12c | %m\n"),
                             :age => 'daily', 
                             :keep => 7)
