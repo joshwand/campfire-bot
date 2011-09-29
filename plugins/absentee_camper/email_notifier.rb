@@ -8,12 +8,11 @@ module AbsenteeCamper
     def initialize(room, user_id)
       @email_address = room.user(user_id)['email_address']
       @room = room
-      configure_pony
     end
 
     def notify(message)
       Logger.instance.debug "sending email to #{@email_address}"
-      ::Pony.mail :to => @email_address, :body => email_body(message)
+      Pony.mail({ :to => @email_address, :body => email_body(message) }.merge(pony_options))
     end
 
     private
@@ -28,8 +27,8 @@ Come back to the campfire!  We're having a good time telling ghost stories!  Her
       BODY
     end
 
-    def configure_pony
-      ::Pony.options = {
+    def pony_options
+      pony_options = {
         # Uncomment for use with Gmail
         #
         #:via => :smtp, :via_options => {
@@ -46,7 +45,7 @@ Come back to the campfire!  We're having a good time telling ghost stories!  Her
       }
 
       if plugin_config['smtp']
-        ::Pony.options.merge!({
+        pony_options.merge!({
           :via => :smtp,
           :via_options => {
             :address => plugin_config['smtp']['address'] || 'localhost',
@@ -59,6 +58,8 @@ Come back to the campfire!  We're having a good time telling ghost stories!  Her
           }
         })
       end
+
+      pony_options
     end
   end
 end
