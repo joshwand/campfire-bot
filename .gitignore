@@ -1,4 +1,4 @@
-config.yml
+*config.yml
 tmp/*
 var/*
 .bundle

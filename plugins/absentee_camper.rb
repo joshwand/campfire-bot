@@ -10,10 +10,6 @@ module AbsenteeCamper
     on_message /@\w+/i, :role_call
 
     def initialize
-      config_store = Config::ConfigStore.instance
-      config_store.root_config = bot.config
-      config_store.plugin_config = bot.config['absentee_camper']
-
       Logger.instance.log = bot.log
     end
 
