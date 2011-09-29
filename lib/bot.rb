@@ -8,8 +8,7 @@ require 'eventmachine'
 require 'logging'
 require 'fileutils'
 require 'erb'
-
-gem 'tinder', '>= 1.4.0'; require 'tinder'
+require 'tinder'
 
 module CampfireBot
   autoload :Plugin, 'plugin'
@@ -33,9 +32,12 @@ module CampfireBot
       @rooms    = {}
       @root_logger = Logging.logger["CampfireBot"]
       @log = Logging.logger[self]
-      
+
+      log_dir = @config['log_dir']
+      Dir.mkdir(log_dir) unless Dir.exists? log_dir
+
       # TODO much of this should be configurable per environment
-      @root_logger.add_appenders Logging.appenders.rolling_file("log/#{BOT_ENVIRONMENT}.log", 
+      @root_logger.add_appenders Logging.appenders.rolling_file("#{log_dir}/#{BOT_ENVIRONMENT}.log", 
                             :layout => Logging.layouts.pattern(:pattern => "%d | %-6l | %-12c | %m\n"),
                             :age => 'daily', 
                             :keep => 7)
@@ -181,4 +183,8 @@ module CampfireBot
       end
     end
   end
+end
+
+def bot
+  CampfireBot::Bot.instance
 end

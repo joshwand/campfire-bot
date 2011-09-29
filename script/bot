@@ -6,7 +6,8 @@ BOT_ROOT        = File.join(File.dirname(__FILE__), '..')
 
 require 'rubygems'
 require 'bundler/setup'
-require File.join(BOT_ROOT, 'lib', 'bot')
+require 'bot'
 
+bot = CampfireBot::Bot.instance
 bot.connect
 bot.run
