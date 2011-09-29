@@ -60,7 +60,8 @@ module CampfireBot
     def run(interval = 5)
       catch(:stop_listening) do
         trap('INT') { throw :stop_listening }
-        
+        trap('TERM') { throw :stop_listening }
+
         # since room#listen blocks, stick it in its own thread
         @rooms.each_pair do |room_name, room|
           Thread.new do
@@ -118,6 +119,9 @@ module CampfireBot
           end
         end
       end
+
+      # Leave the room so users won't be under the false impression that the bot is still running.
+      @rooms.each_value.map(&:leave)
     end
 
     private
