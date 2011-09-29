@@ -33,9 +33,9 @@ module AbsenteeCamper
 
     def user_id_from_config(mentioned)
       if plugin_config['users'][mentioned].is_a? Hash
-        user_id = plugin_config['users'][mentioned]['id']
+        plugin_config['users'][mentioned]['id']
       else
-        user_id = plugin_config['users'][mentioned]
+        plugin_config['users'][mentioned]
       end
     end
   end
