@@ -12,6 +12,10 @@ require 'erb'
 gem 'tinder', '>= 1.4.0'; require 'tinder'
 
 module CampfireBot
+  autoload :Plugin, 'plugin'
+  autoload :Event, 'event'
+  autoload :Message, 'message'
+
   class Bot
     # this is necessary so the room and campfire objects can be accessed by plugins.
     include Singleton
