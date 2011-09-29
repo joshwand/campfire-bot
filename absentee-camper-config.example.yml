@@ -1,0 +1,24 @@
+---
+production:
+  pony_options:
+    # NOTE: The colons before these options are very important.
+    #       Pony requires that the keys be symbols and not strings.
+    #
+    :from: Absentee Camper <no-reply@your-company.com>
+    :subject: "[Campfire] People are talking about you!"
+    :via: :smtp
+    :via_options:
+      :address: smtp.sendgrid.net
+      :port: 587
+      :enable_starttls_auto: true
+      :authentication: plain
+      :user_name: your-user-name
+      :password: secret
+  users:
+    # User with custom (and possibly multiple) notifiers
+    chad:
+      id: 1234567
+      notification_methods:
+        Prowl: your-prowl-api-key
+    # Default email notifier
+    john: 987654
