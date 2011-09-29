@@ -6,18 +6,17 @@ module AbsenteeCamper
     end
 
     def plugin_config
-      ConfigStore.instance.plugin_config
+      PluginConfig.instance.config
     end
 
-    class ConfigStore
+    class PluginConfig
       include Singleton
 
       def initialize
-        self.plugin_config = YAML::load(ERB.new(File.read("#{BOT_ROOT}/absentee-camper-config.yml")).result)[BOT_ENVIRONMENT]
+        self.config = YAML::load(ERB.new(File.read("#{BOT_ROOT}/absentee-camper-config.yml")).result)[BOT_ENVIRONMENT]
       end
 
-      attr_accessor :root_config
-      attr_accessor :plugin_config
+      attr_accessor :config
     end
   end
 end
