@@ -24,6 +24,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'logging', '~> 1.4.3'
   s.add_dependency 'eventmachine', '~> 0.12.10'
   s.add_dependency 'i18n', '~> 0.5.0'
-  s.add_dependency 'pony', '~> 1.3'
-  s.add_dependency 'prowl', '~> 0.1.3'
 end
