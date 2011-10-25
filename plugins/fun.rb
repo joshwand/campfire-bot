@@ -31,7 +31,7 @@ class Fun < CampfireBot::Plugin
   
   def do_or_do_not(m)
     responses = ['Do it!', 'Don\'t do it!', 'Undo it!']
-    m.speak(responses.rand)
+    m.speak(responses.choice)
   end
   
   def agree_with_tim(m)
@@ -41,7 +41,7 @@ class Fun < CampfireBot::Plugin
   
   def greet(m)
     messages = ['Howdy', 'Wassup', 'Greets', 'Hello', 'Hey there', "It's a", 'Good day']
-    m.speak("#{messages.rand} #{m[:person].split(' ')[0]}")
+    m.speak("#{messages.choice} #{m[:person].split(' ')[0]}")
   end
   
   def howareya(m)
@@ -63,9 +63,9 @@ class Fun < CampfireBot::Plugin
       
       # mostly blame the other users
       if rand(10) >= 2
-        blamed = users.rand
+        blamed = users.choice
       else 
-        blamed = others.rand
+        blamed = others.choice
       end
       
     end
@@ -88,8 +88,8 @@ class Fun < CampfireBot::Plugin
       selected_user_name = m[:message].strip
     else
       users = m[:room].users.map{|u| u[:name] }
-      selected_user_name = users.rand
+      selected_user_name = users.choice
     end
-    m.speak("#{m[:person]} slaps #{selected_user_name} #{["upside the head", "in the face", "on the rear", "where it counts", "in the knees", "ineffectually", "in the elbow", "on the funny bone", "in the ear", "on the nose", "in the teeth"].rand} with a #{%w(good-sized large decaying moldy spiked sabre-toothed surprised disappointed dramatic enraged rabid bug-eyed rotten foul-smelling demonic cluestick-holding).rand} trout")
+    m.speak("#{m[:person]} slaps #{selected_user_name} #{["upside the head", "in the face", "on the rear", "where it counts", "in the knees", "ineffectually", "in the elbow", "on the funny bone", "in the ear", "on the nose", "in the teeth"].choice} with a #{%w(good-sized large decaying moldy spiked sabre-toothed surprised disappointed dramatic enraged rabid bug-eyed rotten foul-smelling demonic cluestick-holding).choice} trout")
   end
 end
