@@ -143,7 +143,7 @@ module CampfireBot
 
     def load_plugins
       @config['enable_plugins'].each do |plugin_name|
-        load "#{plugin_name}.rb"
+        require "campfire_bot/#{plugin_name}"
       end
 
       # And instantiate them
