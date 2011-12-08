@@ -1,9 +1,10 @@
 development:
   site: campfire_subdomain_name 
   use_ssl: true
+  log_dir: var
   rooms:
   - Main room
-  - Other room
+  - <%= "Other room" %> # ERB interpolation
   api_key: your_api_key
   nickname: Bot
   fullname: Bot Name

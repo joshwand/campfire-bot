@@ -6,25 +6,17 @@ It has plugin support so you can make your bot do whatever you want.
 
 h2. Installation
 
-h3. Download
-
-Download the source from "github":http://github.com/joshwand/campfire-bot
- 
-h3. Gem Dependencies
-
-  gem install bundler
-  bundle install
+@gem install campfire-bot@
 
 h3. Configuration
 
-Create a @config.yml@ in the root of the source directory. Use @config.example.yml@ as an example.
+Create a @config.yml@ in the directory from which you will run the bot. Use @config.example.yml@ as an example.
 
 h2. Usage
 
-To run the bot, run @script/bot@ with the environment name as the argument:
+To run the bot, run @campfire-bot@ with the environment name as the argument:
 
-  script/bot development
-
+  campfire-bot development
 
 h2. Known issues
 
@@ -50,3 +42,4 @@ h3. Contributors
 * Hugh Evans - "github":http://github.com/artpop
 * Sean O'Dowd - "github":http://github.com/seanodowd
 * Andrew Erickson - "github":http://github.com/aerickson
+* Chad Boyd - "github":http://github.com/hoverlover

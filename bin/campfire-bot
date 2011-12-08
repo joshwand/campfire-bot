@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+# Run this script with the environment as the only argument. eg. ./script/campfire-bot development
+BOT_ENVIRONMENT = ARGV.first
+BOT_ROOT        = '.'
+
+require 'rubygems'
+require 'bundler/setup'
+require 'bot'
+
+bot = CampfireBot::Bot.instance
+bot.connect
+bot.run

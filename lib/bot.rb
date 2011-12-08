@@ -7,15 +7,14 @@ require 'yaml'
 require 'eventmachine'
 require 'logging'
 require 'fileutils'
-
-# Local Libs
-require "#{BOT_ROOT}/lib/message"
-require "#{BOT_ROOT}/lib/event"
-require "#{BOT_ROOT}/lib/plugin"
-
-gem 'tinder', '>= 1.4.0'; require 'tinder'
+require 'erb'
+require 'tinder'
 
 module CampfireBot
+  autoload :Plugin, 'plugin'
+  autoload :Event, 'event'
+  autoload :Message, 'message'
+
   class Bot
     # this is necessary so the room and campfire objects can be accessed by plugins.
     include Singleton
@@ -29,13 +28,16 @@ module CampfireBot
         exit 1
       end
       @timeouts = 0
-      @config   = YAML::load(File.read("#{BOT_ROOT}/config.yml"))[BOT_ENVIRONMENT]
+      @config   = YAML::load(ERB.new(File.read("#{BOT_ROOT}/config.yml")).result)[BOT_ENVIRONMENT]
       @rooms    = {}
       @root_logger = Logging.logger["CampfireBot"]
       @log = Logging.logger[self]
-      
+
+      log_dir = @config['log_dir']
+      Dir.mkdir(log_dir) unless Dir.exists? log_dir
+
       # TODO much of this should be configurable per environment
-      @root_logger.add_appenders Logging.appenders.rolling_file("#{BOT_ROOT}/var/#{BOT_ENVIRONMENT}.log", 
+      @root_logger.add_appenders Logging.appenders.rolling_file("#{log_dir}/#{BOT_ENVIRONMENT}.log", 
                             :layout => Logging.layouts.pattern(:pattern => "%d | %-6l | %-12c | %m\n"),
                             :age => 'daily', 
                             :keep => 7)
@@ -58,7 +60,8 @@ module CampfireBot
     def run(interval = 5)
       catch(:stop_listening) do
         trap('INT') { throw :stop_listening }
-        
+        trap('TERM') { throw :stop_listening }
+
         # since room#listen blocks, stick it in its own thread
         @rooms.each_pair do |room_name, room|
           Thread.new do
@@ -116,6 +119,9 @@ module CampfireBot
           end
         end
       end
+
+      # Leave the room so users won't be under the false impression that the bot is still running.
+      @rooms.each_value.map(&:leave)
     end
 
     private
@@ -137,7 +143,7 @@ module CampfireBot
 
     def load_plugins
       @config['enable_plugins'].each do |plugin_name|
-        load "#{BOT_ROOT}/plugins/#{plugin_name}.rb"
+        require "campfire_bot/#{plugin_name}"
       end
 
       # And instantiate them
