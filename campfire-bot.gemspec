@@ -20,6 +20,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'tinder', '>= 1.4.3'
   s.add_dependency 'activesupport', '~> 3.0.3'
   s.add_dependency 'logging', '~> 1.4.3'
-  s.add_dependency 'eventmachine', '~> 0.12.10'
   s.add_dependency 'i18n', '~> 0.5.0'
 end
