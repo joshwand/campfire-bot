@@ -9,11 +9,11 @@ require 'logging'
 require 'fileutils'
 
 # Local Libs
-require "#{BOT_ROOT}/lib/message"
-require "#{BOT_ROOT}/lib/event"
-require "#{BOT_ROOT}/lib/plugin"
+require "message"
+require "event"
+require "plugin"
 
-gem 'tinder', '>= 1.4.0'; require 'tinder'
+require 'tinder'
 
 module CampfireBot
   class Bot
@@ -21,26 +21,32 @@ module CampfireBot
     include Singleton
 
     # FIXME - these will be invalid if disconnected. handle this.
-    attr_reader :campfire, :rooms, :config, :log
-
-    def initialize
-      if BOT_ENVIRONMENT.nil?
-        puts "you must specify a BOT_ENVIRONMENT"
-        exit 1
-      end
-      @timeouts = 0
-      @config   = YAML::load(File.read("#{BOT_ROOT}/config.yml"))[BOT_ENVIRONMENT]
-      @rooms    = {}
+    attr_reader :campfire, :rooms, :config, :log, :environment_name
+    
+    def create(config_file, environment_name, plugin_path)
+      @config   = YAML::load(File.read(config_file))[environment_name]
+      @plugin_path = plugin_path
+      @environment_name = environment_name
+      
       @root_logger = Logging.logger["CampfireBot"]
       @log = Logging.logger[self]
       
       # TODO much of this should be configurable per environment
-      @root_logger.add_appenders Logging.appenders.rolling_file("#{BOT_ROOT}/var/#{BOT_ENVIRONMENT}.log", 
+
+      @root_logger.add_appenders Logging.appenders.rolling_file("#{@environment_name}.log", 
                             :layout => Logging.layouts.pattern(:pattern => "%d | %-6l | %-12c | %m\n"),
                             :age => 'daily', 
                             :keep => 7)
       @root_logger.level = @config['log_level'] rescue :info
+      
+      @timeouts = 0
+      
+      @rooms    = {}
+      
     end
+
+    # def initialize
+    # end
 
     def connect
       load_plugins unless !@config['enable_plugins']
@@ -137,7 +143,7 @@ module CampfireBot
 
     def load_plugins
       @config['enable_plugins'].each do |plugin_name|
-        load "#{BOT_ROOT}/plugins/#{plugin_name}.rb"
+        load "#{@plugin_path}/#{plugin_name}.rb"
       end
 
       # And instantiate them

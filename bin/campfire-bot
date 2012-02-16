@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+
+# Run this script with the environment as the only argument. eg. ./script/bot development
+# BOT_ENVIRONMENT = ARGV.first
+# BOT_ROOT        = File.join(File.dirname(__FILE__), '..')
+
+require 'rubygems'
+require 'optparse'
+require 'bot'
+# require File.join(BOT_ROOT, 'lib', 'bot')
+
+
+options = {}
+
+
+begin                                                                                                                                                                                                             
+  optparse = OptionParser.new do |opts|
+    opts.banner = "Usage: campfire-bot [options]"
+
+    opts.on("-cCONFIG_FILE", "--config CONFIG_FILE", "path to your config file") do |config|
+      options[:config_file] = config
+    end
+
+    opts.on("-eENVIRONMENT", "--environment ENVIRONMENT", "the environment name as specified in the config file") do |env|
+      options[:env] = env
+    end  
+
+    opts.on( "-pPLUGIN_PATH", "--plugin_path PLUGIN_PATH",
+             "path to your plugins folder" ) do |pp|
+      options[:plugin_path] = pp
+    end
+
+    opts.on_tail("-h", "--help", "prints this help text") do 
+      p opts
+      exit
+    end
+  end
+  
+  optparse.parse!
+
+  mandatory = [:config_file, :env, :plugin_path]                                                                                                                                                              
+  missing = mandatory.select{ |param| options[param].nil? }                                                                                                                          
+  if not missing.empty?                                                                                                                                                            
+    puts "Missing options: #{missing.join(', ')}"                                                                                                                                  
+    puts optparse                                                                                                                                                                  
+    exit                                                                                                                                                                           
+  end                                                                                                                                                                             
+rescue OptionParser::InvalidOption, OptionParser::MissingArgument                                                                                                         
+  puts $!.to_s                                                         
+  puts optparse                                                        
+  exit                                                                 
+end
+
+
+bot.create(options[:config_file], options[:env], options[:plugin_path])
+
+bot.connect
+bot.run
