@@ -29,6 +29,13 @@ Example:
 
 @campfire-bot -c config.yml -e production -p ./plugins@
 
+h2. Plugins
+
+See plugins-example/fun.rb for an example plugin.
+
+The old plugins that used to be bundled with campfire-bot are now in their own repo: "campfire-bot-plugins":https://github.com/campfire-bot-plugins
+
+
 h2. Known issues
 
 h3. [BUG] Bus Error
