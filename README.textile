@@ -33,7 +33,7 @@ h2. Plugins
 
 See plugins-example/fun.rb for an example plugin.
 
-The old plugins that used to be bundled with campfire-bot are now in their own repo: "campfire-bot-plugins":https://github.com/campfire-bot-plugins
+The old plugins that used to be bundled with campfire-bot are now in their own repo: "campfire-bot-plugins":https://github.com/joshwand/campfire-bot-plugins
 
 
 h2. Known issues
