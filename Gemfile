@@ -6,3 +6,7 @@ gem 'mime-types'
 gem 'activesupport'
 gem 'logging'
 gem 'i18n'
+
+group :development do
+  gem 'rspec'
+end

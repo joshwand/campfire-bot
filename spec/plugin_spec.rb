@@ -1,4 +1,4 @@
-require 'spec'
+require 'rspec'
 BOT_ROOT        = File.join(File.dirname(__FILE__), '..')
 BOT_ENVIRONMENT = 'test'
 
